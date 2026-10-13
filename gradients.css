@@ -1,0 +1,29 @@
+/* Production color reference: MusicTranspose cd3a5a0, styles.css and icon-system.css.
+   No production scripts, storage, or runtime dependencies. Shared dimensions for A/B. */
+.gradient-study{--bg:#edf1f4;--surface:#f8fbfc;--ink:#20394d;--muted:#465d6b;--accent:#245a9a;--line:#758f9f;--accent-soft:#e7eef3;--hover:#e3ebf0;--primary:#245a9a;--selected:#245a9a;--banner:linear-gradient(110deg,#245A9A 0%,#3667A8 34%,#2D768A 61%,#237C7A 82%,#2F8B61 100%);--home-gradient:linear-gradient(115deg,#32639d,#237d79);--music-gradient:linear-gradient(90deg,#d0e0ef 0%,#cce3e4 60%,#d4e6dc 100%);--organize-gradient:linear-gradient(90deg,#dcd5eb,#d5cee5)}
+[data-theme=dark] .gradient-study{--bg:#141f29;--surface:#233440;--ink:#eff5fa;--muted:#c0cfda;--line:#7b939f;--accent:#a7caf1;--accent-soft:#293640;--hover:#304653;--music-gradient:linear-gradient(90deg,#223448 0%,#233b40 60%,#293b36 100%);--organize-gradient:linear-gradient(90deg,#3d374d,#343248)}
+.gradient-study .app-header{background:var(--banner)}
+.gradient-study .app-footer button[aria-current]{background:var(--home-gradient);color:#fff}
+.gradient-study .music-destinations .destination{background:var(--music-gradient)}
+.gradient-study .music-destinations .destination-0{background:var(--accent-soft)}
+.gradient-study .personal-destinations .destination{background:var(--organize-gradient)}
+.gradient-b{--ink:#172f4d;--muted:#455b70;--accent:#172f4d;--line:#657f98;--accent-soft:#d8e3ed;--music-gradient:linear-gradient(110deg,#dde6ee,#d4dfe9);--organize-gradient:linear-gradient(110deg,#dde6ee,#d4dfe9);--primary:#172f4d;--selected:#172f4d}
+[data-theme=dark] .gradient-b{--ink:#eef4fc;--muted:#c1d0e2;--accent:#b7cceb;--line:#7892ad;--accent-soft:#263d54;--music-gradient:linear-gradient(110deg,#223449,#293e53);--organize-gradient:linear-gradient(110deg,#223449,#293e53)}
+.gradient-study .hybrid-tools{justify-content:flex-end;margin-bottom:16px}
+.gradient-study .intro{display:block;margin-bottom:22px}
+.gradient-study .music-search{max-width:none}
+.gradient-study .destination{min-height:92px;padding-top:16px;padding-bottom:16px}
+.gradient-study .personal-destinations .destination{min-height:80px}
+.gradient-study .destination:hover{filter:brightness(.97);border-color:var(--accent)}
+[data-theme=dark] .gradient-study .destination:hover{filter:brightness(1.12)}
+.gradient-study .destination:active{box-shadow:inset 0 2px 5px #0003;filter:brightness(.94)}
+.gradient-study .design-nav a{width:auto!important;padding:0 12px!important}
+@media(max-width:700px){.gradient-study .hybrid-tools{align-items:flex-end;margin-bottom:14px}.gradient-study .destination,.gradient-study .personal-destinations .destination{min-height:76px;padding-top:12px;padding-bottom:12px}.gradient-study .intro{margin-bottom:20px}.gradient-study .design-nav a{padding:0 10px!important}}
+.gradient-study .app-footer button[aria-current]{flex-direction:row;gap:6px}
+@media(max-width:900px){.gradient-study .app-footer nav{grid-template-columns:74px repeat(5,minmax(44px,1fr))}.gradient-study .app-footer button[aria-current] .icon{width:30px;height:30px}}
+/* library-nav uses the production app-header-background, not --nav-active. */
+.gradient-study{--home-gradient:var(--banner)}
+.gradient-study .app-footer button[aria-current]{font-size:14px;border-radius:8px}
+.gradient-study .app-footer button[aria-current] .icon{width:30px;height:30px}
+@media(max-width:600px){.gradient-study .app-footer nav{grid-template-columns:repeat(6,minmax(44px,1fr))}.gradient-study .app-footer button[aria-current] span{display:none}}
+@media(min-width:601px) and (max-width:900px){.gradient-study .app-footer nav{grid-template-columns:96px repeat(5,minmax(44px,1fr))}}

@@ -49,3 +49,16 @@ Hybrid uses defined single-column buttons at 700px and below, and compact two-co
 The current Hybrid compares two blue treatments while retaining the Round 2 layout. Classic Blue uses #245DA5 with a #E9EDF0 page background. Deep Navy uses #172F4D with #E5E8EC. Light cards remain white, including All Music; stronger outlines provide emphasis without pastel fills. Both have coordinated dark surfaces, blue icons, solid selected controls, and matching headers/footers. The Classic header endpoint is darkened slightly for white-text contrast.
 
 The earlier palettes remain available in commit d566ff8 and their existing screenshots. A/B/C are unchanged. New captures are named `hybrid-classic-{theme}-{width}.png` and `hybrid-navy-{theme}-{width}.png`. Recommendation: Deep Navy for the more restrained, substantial appearance; Classic Blue for more vivid emphasis. No production integration is included.
+
+## Refined gradients and readability
+
+- [Gradient A — refined original colors](https://utahbug.github.io/MusicTranspose-DesignLab/gradients-a.html)
+- [Gradient B — original identity with navy accents](https://utahbug.github.io/MusicTranspose-DesignLab/gradients-b.html)
+
+These are separate alternatives for user review, with identical card dimensions and responsive layout. A retains the production music gradients and lavender organization cards. B uses blue-gray interiors and navy accents. Both remove the large introduction and palette picker, use Browse Music / Organize Music headings, and retain the upper-right temporary opening preference.
+
+Visual reference: production commit cd3a5a0, `styles.css` (`--app-header-background`, Home color tokens, `library-nav`) and the `#songs` SVG in `index.html`, reused by production Home. Both banner and Home use the exact five-stop production gradient. The original Home SVG geometry is retained at 30px, white, left of a 14px label on wider screens. Compact phones use an accessible icon-only Home button. No production scripts are imported.
+
+`tests/gradients.mjs` covers Chromium/WebKit at 320×568, 390×844, 844×390, 600×800 Split View, 820×1180, 1194×834, and 1440×900. It compares A/B card rectangles, checks contrast across card gradient stops and beneath the Home label, touch targets, keyboard focus, scrolling/footer clearance, and storage isolation.
+
+Screenshots named `gradients-{a|b}-{light|dark}-{width}-viewport.png` preserve the requested viewport. Corresponding files without `-viewport` are complete-content captures with capture height expanded so the fixed footer appears below all content. Physical-device and screen-reader testing remain outstanding. Existing prototypes and historical captures are retained; no alternative has been chosen for production.
