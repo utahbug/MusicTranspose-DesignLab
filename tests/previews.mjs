@@ -36,7 +36,7 @@ for(const [engine,type] of Object.entries({chromium,webkit})){
   }
   await p.reload();assert.equal(await p.locator('html').getAttribute('data-theme'),null);assert(await p.locator('input[value=score]').isChecked());
  }
- await p.goto(base+'index.html');assert.equal(await p.locator('.option-card').count(),3);assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(engine==='chromium'&&width===1440)await p.screenshot({path:'screenshots/comparison.png',fullPage:true});await p.locator('.option-card').nth(1).click();assert(p.url().endsWith('b.html'));await p.locator('.lab-home').click();assert(p.url().endsWith('index.html'));
+ await p.goto(base+'index.html');assert.equal(await p.locator('.option-card').count(),4);assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(engine==='chromium'&&width===1440)await p.screenshot({path:'screenshots/comparison.png',fullPage:true});await p.locator('.option-card').nth(1).click();assert(p.url().endsWith('b.html'));await p.locator('.lab-home').click();assert(p.url().endsWith('index.html'));
  assert.deepEqual(errors,[]);assert(requests.every(url=>url.startsWith(base)&&!url.includes('/MusicTranspose/')),JSON.stringify(requests));
  console.log('PASS',engine,width,'A/B/C, both themes, contrast, geometry, interactions, isolation');await c.close();
  }}finally{await b.close();}

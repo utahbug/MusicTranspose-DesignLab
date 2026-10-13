@@ -35,3 +35,11 @@ Run `python -m http.server 8788 --bind 127.0.0.1` in this directory, then open `
 Responsive Chromium captures are in [screenshots](screenshots), named `a-light-320.png` through `c-dark-1440.png`. WebKit captures and machine-readable results are local diagnostics in ignored `test-results/`.
 
 Physical iPhone/iPad testing remains outstanding. Navigation and music functionality are intentionally not implemented. Future integration would require separate production behavior, accessibility, and regression testing.
+
+## Round 2 — Hybrid
+
+[Open Hybrid](https://utahbug.github.io/MusicTranspose-DesignLab/hybrid.html). A, B, and C remain unchanged.
+
+Hybrid uses defined single-column buttons at 700px and below, and compact two-column collection cards above 700px. The temporary Score/Lyrics preference occupies its own upper-right row above the heading. Slate/Blue, Sage/Forest, and Ivory/Navy each have deliberately coordinated Light and Dark colors, with selective emphasis on All Music and the active footer action. Palette changes do not rebuild navigation or persist browser state.
+
+`tests/hybrid.mjs` covers both browser engines at 320, 390, 600, 744, 820, 1024, 1194, and 1440px. Screenshots use `hybrid-{palette}-{theme}-{width}.png`. Automated checks cover layout columns, preference position, 44px targets, contrast, overflow, footer clearance, keyboard focus, dialogs, Search, temporary choices, and prohibited storage access. Physical-device and assistive-technology testing remain outstanding.
