@@ -10,9 +10,9 @@ for(const [engine,type] of Object.entries({chromium,webkit})){
  // Any accidental access fails the test before browser data can be touched.
  await c.addInitScript(()=>{window.forbiddenCalls=[];for(const key of ['localStorage','sessionStorage','indexedDB','caches'])Object.defineProperty(window,key,{get(){forbiddenCalls.push(key);throw Error('Forbidden API: '+key);}});if(navigator.serviceWorker)navigator.serviceWorker.register=()=>{forbiddenCalls.push('serviceWorker.register');throw Error('No worker registration');};});
  const p=await c.newPage(),errors=[],requests=[];p.on('pageerror',e=>errors.push(e.message));p.on('request',r=>requests.push(r.url()));
- for(const palette of ['slate','sage','ivory']){
+ for(const palette of ['classic','navy']){
   const option='hybrid';await p.goto(base+'hybrid.html');await p.locator(`input[name=palette][value=${palette}]`).check();assert.equal(await p.locator('input[name=palette]:checked').inputValue(),palette);const columns=await p.locator('.music-destinations').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length);assert.equal(columns,width>700?2:1);const pref=await p.locator('.opening-choice').boundingBox(),heading=await p.locator('.intro').boundingBox();assert(pref.y+pref.height<=heading.y);
-  assert.equal(await p.locator('.destination').count(),6);assert.equal(await p.getByRole('group',{name:'Preview palette'}).count(),1);assert.equal(await p.getByRole('group',{name:'Open songs as:'}).count(),1);await p.locator('input[name=palette]:checked').focus();await p.keyboard.press(palette==='ivory'?'ArrowLeft':'ArrowRight');assert.notEqual(await p.locator('input[name=palette]:checked').inputValue(),palette);await p.locator('input[name=palette][value='+palette+']').check();assert.equal(await p.locator('link[rel=manifest]').count(),0);
+  assert.equal(await p.locator('.destination').count(),6);assert.equal(await p.getByRole('group',{name:'Preview palette'}).count(),1);assert.equal(await p.getByRole('group',{name:'Open songs as:'}).count(),1);await p.locator('input[name=palette]:checked').focus();await p.keyboard.press(palette==='navy'?'ArrowLeft':'ArrowRight');assert.notEqual(await p.locator('input[name=palette]:checked').inputValue(),palette);await p.locator('input[name=palette][value='+palette+']').check();assert.equal(await p.locator('link[rel=manifest]').count(),0);
   assert.deepEqual(await p.locator('.destination strong').allTextContents(),['All Music','Children’s Songbook','Hymns for Home and Church','Hymns (1985)','Lists','Files']);
   assert.deepEqual(await p.locator('.app-footer button span').allTextContents(),['Home','Lists','Files','Notes','Keyboard','Settings']);
   for(const theme of ['light','dark']){
@@ -36,7 +36,7 @@ for(const [engine,type] of Object.entries({chromium,webkit})){
   }
   await p.reload();assert.equal(await p.locator('html').getAttribute('data-theme'),null);assert(await p.locator('input[value=score]').isChecked());
  }
- await p.goto(base+'index.html');assert.equal(await p.locator('.option-card').count(),4);assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(engine==='chromium'&&width===1440)await p.screenshot({path:'screenshots/comparison-round2.png',fullPage:true});await p.locator('.option-card').nth(1).click();assert(p.url().endsWith('b.html'));await p.locator('.lab-home').click();assert(p.url().endsWith('index.html'));
+ await p.goto(base+'index.html');assert.equal(await p.locator('.option-card').count(),4);assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));if(engine==='chromium'&&width===1440)await p.screenshot({path:'screenshots/comparison-blue-study.png',fullPage:true});await p.locator('.option-card').nth(1).click();assert(p.url().endsWith('b.html'));await p.locator('.lab-home').click();assert(p.url().endsWith('index.html'));
  assert.deepEqual(errors,[]);assert(requests.every(url=>url.startsWith(base)&&!url.includes('/MusicTranspose/')),JSON.stringify(requests));
  console.log('PASS',engine,width,'Hybrid palettes, both themes, contrast, geometry, interactions, isolation');await c.close();
  }}finally{await b.close();}

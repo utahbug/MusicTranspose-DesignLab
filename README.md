@@ -43,3 +43,9 @@ Physical iPhone/iPad testing remains outstanding. Navigation and music functiona
 Hybrid uses defined single-column buttons at 700px and below, and compact two-column collection cards above 700px. The temporary Score/Lyrics preference occupies its own upper-right row above the heading. Slate/Blue, Sage/Forest, and Ivory/Navy each have deliberately coordinated Light and Dark colors, with selective emphasis on All Music and the active footer action. Palette changes do not rebuild navigation or persist browser state.
 
 `tests/hybrid.mjs` covers both browser engines at 320, 390, 600, 744, 820, 1024, 1194, and 1440px. Screenshots use `hybrid-{palette}-{theme}-{width}.png`. Automated checks cover layout columns, preference position, 44px targets, contrast, overflow, footer clearance, keyboard focus, dialogs, Search, temporary choices, and prohibited storage access. Physical-device and assistive-technology testing remain outstanding.
+
+## Classic Blue vs. Deep Navy
+
+The current Hybrid compares two blue treatments while retaining the Round 2 layout. Classic Blue uses #245DA5 with a #E9EDF0 page background. Deep Navy uses #172F4D with #E5E8EC. Light cards remain white, including All Music; stronger outlines provide emphasis without pastel fills. Both have coordinated dark surfaces, blue icons, solid selected controls, and matching headers/footers. The Classic header endpoint is darkened slightly for white-text contrast.
+
+The earlier palettes remain available in commit d566ff8 and their existing screenshots. A/B/C are unchanged. New captures are named `hybrid-classic-{theme}-{width}.png` and `hybrid-navy-{theme}-{width}.png`. Recommendation: Deep Navy for the more restrained, substantial appearance; Classic Blue for more vivid emphasis. No production integration is included.
