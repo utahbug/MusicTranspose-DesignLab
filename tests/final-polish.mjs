@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import fs from 'node:fs/promises';
+const pw=createRequire('C:/Users/kenro/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/package.json')('playwright'),base=process.env.TEST_URL||'http://127.0.0.1:8788/';
+const beforeHTML=execFileSync('git',['show','79cead3:final-combination.html']),beforeCSS=execFileSync('git',['show','79cead3:final-combination.css']);
+await fs.mkdir('test-results/polish',{recursive:true});
+for(const engine of ['chromium','webkit']){const b=await pw[engine].launch(engine==='chromium'?{channel:'msedge'}:{});try{for(const [width,height,touch] of [[820,1180,true],[1194,834,true],[1366,1024,true],[1194,834,false],[1440,900,false],[1920,1080,false]]){
+ const c=await b.newContext({viewport:{width,height},hasTouch:touch,serviceWorkers:'block'}),p=await c.newPage();
+ await p.route('**/before.html',r=>r.fulfill({contentType:'text/html',body:beforeHTML}));await p.route('**/final-combination.css',r=>r.fulfill({contentType:'text/css',body:beforeCSS}));await p.goto(base+'before.html');
+ const rects=()=>p.locator('.app-header,.music-search,.opening-choice,.destination,.app-footer button').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height];}));const before=await rects();
+ await p.screenshot({path:`test-results/polish/${engine}-${width}-${touch?'ipad':'desktop'}-before.png`});await p.unroute('**/final-combination.css');await p.goto(base+'final-combination.html');
+ for(const theme of ['light','dark']){if(theme==='dark')await p.locator('.theme-toggle').click();assert.deepEqual(await rects(),before,'layout preserved');
+ const styles=await p.evaluate(()=>{const css=s=>getComputedStyle(document.querySelector(s));return {score:css('input:checked+span').backgroundColor,search:css('.music-search>button').backgroundColor,border:css('.destination-0').borderLeftColor,weight:css('.destination-0').borderLeftWidth,white:css('.white-keys').fill,black:css('.black-keys').fill,overflow:document.documentElement.scrollWidth>innerWidth};});
+ assert.equal(styles.score,touch?'rgb(23, 47, 77)':'rgb(36, 85, 132)');assert.equal(styles.search,styles.score);assert.equal(styles.weight,touch?'5px':'4px');assert.equal(styles.border,touch?(theme==='dark'?'rgb(183, 204, 235)':'rgb(23, 47, 77)'):(theme==='dark'?'rgb(144, 170, 198)':'rgb(69, 105, 139)'));assert.equal(styles.white,'rgb(255, 255, 255)');assert.equal(styles.black,'rgb(23, 47, 77)');assert(!styles.overflow);
+ await p.screenshot({path:`test-results/polish/${engine}-${width}-${touch?'ipad':'desktop'}-${theme}.png`});await p.locator('[data-preview=Keyboard]').click();assert.equal(await p.locator('#preview-title').textContent(),'Keyboard');await p.keyboard.press('Escape');
+ }console.log('PASS',engine,width,touch?'iPad unchanged palette':'desktop blue/softer border','geometry, piano icon, both themes');await c.close();
+ }}finally{await b.close();}}

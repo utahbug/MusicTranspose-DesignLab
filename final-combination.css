@@ -12,3 +12,14 @@
 [data-theme=dark] .final-combination .music-destinations .destination-0{background:linear-gradient(105deg,#213e61 0%,#244b5a 45%,#23534b 100%);border-left-color:#b7cceb}
 @media(max-width:700px){.final-combination .design-nav a{padding-inline:8px!important}.final-combination .hybrid-tools{flex-direction:row;margin-bottom:10px}}
 @media(max-width:600px){.final-combination .app-header{padding:10px 0}.final-combination .app-header .header-inner{padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right));gap:8px}}
+/* Piano-key artwork only; button dimensions and label remain unchanged. */
+.final-combination .piano-keyboard-icon{color:#172f4d}
+.final-combination .piano-keyboard-icon .white-keys{fill:#fff}
+.final-combination .piano-keyboard-icon .black-keys{fill:currentColor;stroke-width:1}
+/* Desktop pointer layouts: retain the existing tablet colors and border weight. */
+@media(min-width:1024px) and (hover:hover) and (pointer:fine){
+ .final-combination,[data-theme=dark] .final-combination{--primary:#245584;--selected:#245584}
+ .final-combination .music-destinations .destination-0{border-color:#45698b;border-left-width:4px;padding-left:15px}
+ [data-theme=dark] .final-combination .music-destinations .destination-0{border-color:#90aac6}
+ .final-combination .music-search>button:hover{background:#1e4772}
+}
